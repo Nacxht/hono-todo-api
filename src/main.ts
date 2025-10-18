@@ -13,11 +13,11 @@ app.notFound((c) => {
   }, 404);
 });
 
-app.notFound((c) => {
+app.onError((_err, c) => {
   return c.json({
     status: "error",
-    message: "An Error message",
-  });
+    message: "An error happened",
+  }, 500);
 });
 
 Deno.serve(app.fetch);
