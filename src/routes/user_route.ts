@@ -1,28 +1,37 @@
 import { Hono } from "hono";
 
-export const user = new Hono().basePath("/user");
+export const userRoute = new Hono().basePath("/user");
 
 // get all users
-user.get("/", (c) => {
+userRoute.get("/", (c) => {
   return c.text("Get all users");
 });
 
 // get existed user specifically
-user.get("/:id", (c) => {
+userRoute.get("/:id", (c) => {
+  const userId = c.req.param("id");
+
   return c.text("Get existed user specifically");
 });
 
 // create new todo
-user.post("/", (c) => {
+userRoute.post("/", async (c) => {
+  const body = await c.req.json();
+
   return c.text("Create new todo");
 });
 
 // edit existed user specifically
-user.patch("/:id", (c) => {
+userRoute.patch("/:id", async (c) => {
+  const body = await c.req.json();
+  const userId = c.req.param("id");
+
   return c.text("Edit existed user specifically");
 });
 
 // delete existed user specifically
-user.delete("/:id", (c) => {
+userRoute.delete("/:id", (c) => {
+  const userId = c.req.param("id");
+
   return c.text("Delete existed user specifically");
 });
